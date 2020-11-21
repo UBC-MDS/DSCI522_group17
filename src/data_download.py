@@ -26,16 +26,17 @@ def main(url, delim, filepath, filename):
         print("Invalid URL, please enter a valid URL")
         raise
 
-    data = pd.read_csv(url, delimiter=delim)
-    try:
-        pd.to_csv(filepath + filename, index=False)
-    except:
-        # create a new directory
-        print("path does not exist, creating path...")
-        os.makedirs(os.path.dirname(filepath))
-        data.to_csv(filepath + filename, index=False)
+    data = pd.read_csv(url, delimiter=delim,engine='python')
+#     try:
+#         pd.to_csv(filepath + filename, index=False)
+#     except:
+#         # create a new directory
+#         print("path does not exist, creating path...")
+#         os.makedirs(os.path.dirname(filepath))
+#         data.to_csv(filepath + filename, index=False)
 
-
+    data.to_csv(filepath + filename, index=False)
+    
 if __name__ == "__main__":
     main(opt["--url"], opt["--delim"], opt["--filepath"], opt["--filename"])
 
