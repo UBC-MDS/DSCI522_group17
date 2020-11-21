@@ -9,18 +9,18 @@ GitHub repository: https://github.com/UBC-MDS/DSCI522_group17
 
 Introduction
 As somebody said that “Life is too short to drink bad wine.”, we decided to work on the wine dataset so that we can help in determining the quality of wine. 
-Dataset: The data set used in this project is sourced from the UCI Machine Learning Repository and can be found https://archive.ics.uci.edu/ml/datasets/Wine+Quality. Two datasets are included, related to red and white wine, from the north of Portugal. There are 6497 observations in the dataset with 11 physiochemical variables, as independent variables and one output quality variable measuring quality score given by bunch of wine experts. Due to privacy and logistic issues, only physicochemical (inputs) and sensory (the output) variables are available (e.g. there is no data about grape types, wine brand, wine selling price, etc.).
+Dataset: The data set used in this project is sourced from the UCI Machine Learning Repository and can be found [here]https://archive.ics.uci.edu/ml/datasets/Wine+Quality. Two datasets are included, related to red and white wine, from the north of Portugal. There are 6497 observations in the dataset with 11 physiochemical variables, as independent variables and one output quality variable measuring quality score given by bunch of wine experts. Due to privacy and logistic issues, only physicochemical (inputs) and sensory (the output) variables are available (e.g. there is no data about grape types, wine brand, wine selling price, etc.).
 Input variables (based on physicochemical tests):
-1.	fixed acidity (tartaric acid - ${g/dm^{3}}$)
+1.	fixed acidity (tartaric acid - g / dm^3)
 2.	volatile acidity (acetic acid - g / dm^3)
 3.	citric acid (g / dm^3)
 4.	residual sugar (g / dm^3)
-5.	chlorides (sodium chloride - g / dm^3
+5.	chlorides (sodium chloride - g / dm^3)
 6.	free sulfur dioxide (mg / dm^3)
 7.	total sulfur dioxide (mg / dm^3)
 8.	density (g / cm^3)
 9.	pH
-10.	sulphates (potassium sulphate - g / dm3)
+10.	sulphates (potassium sulphate - g / dm^3)
 11.	alcohol (% by volume)
 12.	type of wine(red or white)
 
@@ -37,5 +37,10 @@ Thus far we have performed some exploratory data analysis, and the report for th
 
 ## Report
 
-The EDA can be found
-[here](https://github.com/UBC-MDS/DSCI522_group17/blob/main/wine.ipynb).
+The EDA can be found [here](https://github.com/UBC-MDS/DSCI522_group17/blob/main/wine.ipynb).
+
+## Project Collaboration
+We created the following files that are important for collaboration:
+  1. [Code of Conduct file](https://github.com/UBC-MDS/DSCI522_group17/blob/main/CODE_OF_CONDUCT.md)
+  2. [Contributing file](https://github.com/UBC-MDS/DSCI522_group17/blob/main/CONTRIBUTING.md)
+  3. [License file](https://github.com/UBC-MDS/DSCI522_group17/blob/main/LICENSE)
