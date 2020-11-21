@@ -7,7 +7,7 @@ Team members: Pan Fan, Chun Chieh Chang and Sakshi Jain
 
 GitHub repository: https://github.com/UBC-MDS/DSCI522_group17
 
-### Introduction
+## Introduction
 
 As somebody said that “Life is too short to drink bad wine.”, we decided to work on the wine dataset so that we can help in determining the quality of wine via its chemical composition.
 
@@ -30,7 +30,7 @@ Predictors:
 Output variable:
 1.	quality (classes : "Excellent" , "Good", "Bad")
 
-### Objective of the Study:
+## Objective of the Study:
 
 We are interested in whether we can predict the quality of the wine by using physicochemical and its wine type. This is an interesting question because if we can indeed find the perfect formula to produce the perfect wine, we can start a wine company and make a lot of money off from it. Soon, we will take over the wine market and dominate the wine industry with our perfect wine!
 
@@ -40,7 +40,7 @@ In terms of model building, we are planning to use models such as K-Nearest Neig
 
 For now, you can find the result of our EDA [here](https://github.com/UBC-MDS/DSCI522_group17/tree/main/src) in a jupyter notebook.
 
-### Dependencies
+## Dependencies
 
 Python 3.8.3 and Python packages:
 
@@ -51,14 +51,18 @@ Python 3.8.3 and Python packages:
 * pandocfilters==1.4.2
 
 
-### Usage
+## Usage
 
 To download the data, please run the following script from the root of the project.
 
     python src/data_download.py --url=https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv --delim=';' --filepath=data/raw/ --filename=winequality-red.csv
     python src/data_download.py --url=https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv --delim=';' --filepath=data/raw/ --filename=winequality-white.csv
 
-### References
+## License
+
+Please refer to the License File [here](https://github.com/UBC-MDS/DSCI522_group17/blob/main/LICENSE)
+
+## References
 
 P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
 Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
