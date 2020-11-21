@@ -9,7 +9,7 @@ GitHub repository: https://github.com/UBC-MDS/DSCI522_group17
 
 Introduction
 As somebody said that “Life is too short to drink bad wine.”, we decided to work on the wine dataset so that we can help in determining the quality of wine. 
-Dataset: The data set used in this project is sourced from the UCI Machine Learning Repository and can be found [here]https://archive.ics.uci.edu/ml/datasets/Wine+Quality. Two datasets are included, related to red and white wine, from the north of Portugal. There are 6497 observations in the dataset with 11 physiochemical variables, as independent variables and one output quality variable measuring quality score given by bunch of wine experts. Due to privacy and logistic issues, only physicochemical (inputs) and sensory (the output) variables are available (e.g. there is no data about grape types, wine brand, wine selling price, etc.).
+Dataset: The data set used in this project is sourced from the UCI Machine Learning Repository and can be found [here](https://archive.ics.uci.edu/ml/datasets/Wine+Quality). Two datasets are included, related to red and white wine, from the north of Portugal. There are 6497 observations in the dataset with 11 physiochemical variables, as independent variables and one output quality variable measuring quality score given by bunch of wine experts. Due to privacy and logistic issues, only physicochemical (inputs) and sensory (the output) variables are available (e.g. there is no data about grape types, wine brand, wine selling price, etc.).
 Input variables (based on physicochemical tests):
 1.	fixed acidity (tartaric acid - g / dm^3)
 2.	volatile acidity (acetic acid - g / dm^3)
