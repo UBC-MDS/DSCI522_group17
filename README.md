@@ -32,9 +32,9 @@ Output variable:
 
 ### Objective of the Study:
 
-We are interested in whether we can predict the quality of the wine by using physicochemical. This is an interesting question because if we can indeed find the perfect formula to produce the perfect wine, we can start a wine company and make a lot of money off from it. Soon, we will take over the wine market and dominate the wine industry with our perfect wine!
+We are interested in whether we can predict the quality of the wine by using physicochemical and its wine type. This is an interesting question because if we can indeed find the perfect formula to produce the perfect wine, we can start a wine company and make a lot of money off from it. Soon, we will take over the wine market and dominate the wine industry with our perfect wine!
 
-In order to answer our research question, we will build a classification model with the features as physicochemical and the type of wine and the output as the quality of wine. In terms of exploratory data analysis, we will first split the data up into a training set and testing set via a 0.75/0.25 split and perform the EDA on the training set. Since almost all of our predictors are continuous variables, we will first use pandas profiling to create a basic analysis on each of the predictor. Next, we will examine if the columns contain any missing values. Third, we will explore the predictors' distributions given different wine quality via seaborn using a pair plot. Finally, we will examine the distribution of wine quality to determine if there are any class imbalance issue.
+In order to answer our research question, we will build a classification model with the features as physicochemical and the type of wine and the output as the quality of wine. In terms of exploratory data analysis, we will first split the data up into a training set and a testing set via a 0.75/0.25 split and perform the EDA on the training set. Since almost all of our predictors are continuous variables, we will first use pandas profiling to create a basic analysis on each of the predictor. Next, we will examine if the columns contain any missing values. Third, we will explore the predictors' distributions given different wine quality via seaborn using a pair plot. Finally, we will examine the distribution of wine quality to determine if there is any class imbalance issue.
 
 In terms of model building, we are planning to use models such as K-Nearest Neighbour, Decision Tree, Support Vector Machine, Logistic Regression, and Naive Bayes to make the predictions. After we finish building our models, we will also explore which features contribute the most in the prediction process. Finally, we will select the best model and re-fit the model on the training data and evaluate it on the test data. In terms of model evaluation, we will look at model accuracy as well as the confusion matrix. These analysis will be included in the final report.
 
@@ -49,6 +49,14 @@ Python 3.8.3 and Python packages:
 * pandas==1.0.5
 * seaborn==0.11.0
 * pandocfilters==1.4.2
+
+
+### Usage
+
+To download the data, please run the following script from the root of the project.
+
+    python src/data_download.py --url=https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv --delim=';' --filepath=data/raw/ --filename=winequality-red.csv
+    python src/data_download.py --url=https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv --delim=';' --filepath=data/raw/ --filename=winequality-white.csv
 
 ### References
 
