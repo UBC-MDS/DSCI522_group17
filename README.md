@@ -7,32 +7,50 @@ Team members: Pan Fan, Chun Chieh Chang and Sakshi Jain
 
 GitHub repository: https://github.com/UBC-MDS/DSCI522_group17
 
-Introduction
-As somebody said that “Life is too short to drink bad wine.”, we decided to work on the wine dataset so that we can help in determining the quality of wine. 
-Dataset: The data set used in this project is sourced from the UCI Machine Learning Repository and can be found https://archive.ics.uci.edu/ml/datasets/Wine+Quality. Two datasets are included, related to red and white wine, from the north of Portugal. There are 6497 observations in the dataset with 11 physiochemical variables, as independent variables and one output quality variable measuring quality score given by bunch of wine experts. Due to privacy and logistic issues, only physicochemical (inputs) and sensory (the output) variables are available (e.g. there is no data about grape types, wine brand, wine selling price, etc.).
-Input variables (based on physicochemical tests):
-1.	fixed acidity (tartaric acid - g / dm^3)
-2.	volatile acidity (acetic acid - g / dm^3)
-3.	citric acid (g / dm^3)
-4.	residual sugar (g / dm^3)
-5.	chlorides (sodium chloride - g / dm^3
-6.	free sulfur dioxide (mg / dm^3)
-7.	total sulfur dioxide (mg / dm^3)
-8.	density (g / cm^3)
+### Introduction
+
+As somebody said that “Life is too short to drink bad wine.”, we decided to work on the wine dataset so that we can help in determining the quality of wine via its chemical composition.
+
+Dataset: The data set used in this project is sourced from the UCI Machine Learning Repository and can be found [here](https://archive.ics.uci.edu/ml/datasets/Wine+Quality). Two datasets are included and one is for red wine while the other is for white wine. We will merge these two datasets together and create a new column `type of wine` to represent the wine type for each observation. In addition, we will group the quality of wine into three categories and they are "Bad", "Good", and "Excellent". In total, we have 12 predictors and one output variable.
+
+Predictors:
+1.	fixed acidity
+2.	volatile acidity
+3.	citric acid
+4.	residual sugar
+5.	chlorides
+6.	free sulfur dioxide
+7.	total sulfur dioxide
+8.	density
 9.	pH
-10.	sulphates (potassium sulphate - g / dm3)
-11.	alcohol (% by volume)
-12.	type of wine(red or white)
+10.	sulphates
+11.	alcohol
+12.	type of wine
 
-Output variable (based on sensory data):
-1.	quality (score between 0 and 10)
+Output variable:
+1.	quality (classes : "Excellent" , "Good", "Bad")
 
-Objective of the study:
-For this project we are trying to answer the question: can we predict the quality of the wine by using physicochemical? To answer the predictive question posed here, we plan to build a predictive classification model after merging the both data set. Before building our model we will partition the data into a training and test set (split 75%:25%) and perform exploratory data analysis to assess whether there is a strong class imbalance problem that we might need to address, as well as explore whether there are any predictors whose distribution looks very similar between the two classes, and thus we might omit from our analysis. We will analyses if any missing value treatment is needed.
-Given that all measurements are continuous in nature, and the outcome we are trying to predict is one of the class among 11 classes. We are planning to explore different machine learning models such as a k-nearest neighbors classification algorithm, SVM and Decision Tree. 
+### Objective of the Study:
 
-After selecting our final model, we will re-fit the model on the entire training data set, and then evaluate it’s performance on the test data set. At this point we will look at overall accuracy as well as misclassification errors (from the confusion matrix) to assess prediction performance. These values will be reported as a table in the final report.
+We are interested in whether we can predict the quality of the wine by using physicochemical. This is an interesting question because if we can indeed find the perfect formula to produce the perfect wine, we can start a wine company and make a lot of money off from it. Soon, we will take over the wine market and dominate the wine industry with our perfect wine!
 
-Thus far we have performed some exploratory data analysis, and the report for that can be found here.
+In order to answer our research question, we will build a classification model with the features as physicochemical and the type of wine and the output as the quality of wine. In terms of exploratory data analysis, we will first split the data up into a training set and testing set via a 0.75/0.25 split and perform the EDA on the training set. Since almost all of our predictors are continuous variables, we will first use pandas profiling to create a basic analysis on each of the predictor. Next, we will examine if the columns contain any missing values. Third, we will explore the predictors' distributions given different wine quality via seaborn using a pair plot. Finally, we will examine the distribution of wine quality to determine if there are any class imbalance issue.
 
-  
+In terms of model building, we are planning to use models such as K-Nearest Neighbour, Decision Tree, Support Vector Machine, Logistic Regression, and Naive Bayes to make the predictions. After we finish building our models, we will also explore which features contribute the most in the prediction process. Finally, we will select the best model and re-fit the model on the training data and evaluate it on the test data. In terms of model evaluation, we will look at model accuracy as well as the confusion matrix. These analysis will be included in the final report.
+
+For now, you can find the result of our EDA [here](https://github.com/UBC-MDS/DSCI522_group17/tree/main/src) in a jupyter notebook.
+
+### Dependencies
+
+Python 3.8.3 and Python packages:
+
+* docopt==0.6.2
+* requests==2.23.0
+* pandas==1.0.5
+* seaborn==0.11.0
+* pandocfilters==1.4.2
+
+### References
+
+P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
+Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
