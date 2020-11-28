@@ -21,7 +21,7 @@ opt = docopt(__doc__)
 def main(input_file, input_file2,output_file,output_file2):
 
     # read in two datasets, one for redwine, one for whitewine
-    data_red= pd.read_csv(input_file, ";")
+    data_red= pd.read_csv(input_file)
     #cleaning data
     data_red = data_red.rename(columns=lambda x: x.replace(" ","_"))
 
@@ -30,7 +30,7 @@ def main(input_file, input_file2,output_file,output_file2):
     data_red['wine_type']= "red"
 
 
-    data_white = pd.read_csv(input_file2, ";")
+    data_white = pd.read_csv(input_file2)
     #cleaning data
     data_white = data_white.rename(columns=lambda x: x.replace(" ","_"))
 
@@ -42,7 +42,7 @@ def main(input_file, input_file2,output_file,output_file2):
     full_data = pd.concat([data_white, data_red], axis=0)
     full_data = full_data.drop('quality', axis = 1)
 
-    train_df, test_df = train_test_split(full_data, test_size=0.25, random_state=123)
+    train_df, test_df = train_test_split(full_data, test_size=0.25, random_state=2020)
 
     try:
         train_df.to_csv(output_file, index = False)
