@@ -1,3 +1,5 @@
+# Author: Pan Fan, Chun Chieh Chang, Sakshi Jain
+# Date: 2020/11/27
 """Create transformed train and test files .
 
 Usage: src/eda_figs.py <input_file> <input_file1> <output_file> <output_file1>
@@ -18,22 +20,7 @@ import sys
 from sklearn.compose import ColumnTransformer, TransformedTargetRegressor, make_column_transformer
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.impute import SimpleImputer
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.linear_model import LogisticRegression, Ridge
-from sklearn.metrics import (
-    accuracy_score,
-    classification_report,
-    confusion_matrix,
-    f1_score,
-    make_scorer,
-    precision_score,
-    recall_score,
-)
-
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
-from sklearn.svm import SVC, SVR
-import scipy 
-from scipy.stats import randint
 
 
 if not sys.warnoptions:
@@ -80,16 +67,12 @@ def main(input_file, input_file1, output_file,output_file1):
 
     try:
         train_pp.to_csv(output_file, index = False)
+        test_pp.to_csv(output_file1, index = False)
     except:
         os.makedirs(os.path.dirname(output_file))
         train_pp.to_csv(output_file, index = False)
+        test_pp.to_csv(output_file1, index = False)
 
-    try:
-        test_pp.to_csv(output_file1, index = False)
-    except:
-        os.makedirs(os.path.dirname(output_file2))
-        test_pp.to_csv(output_file1, index = False)
-    
     
 
 if __name__ == "__main__":

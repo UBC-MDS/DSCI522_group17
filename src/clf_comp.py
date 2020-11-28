@@ -1,3 +1,5 @@
+# Author: Pan Fan, Chun Chieh Chang, Sakshi Jain
+# Date: 2020/11/27
 """Compare the performance of different classifier .
 
 Usage: src/eda_figs.py <input_file> <output_file>
@@ -12,15 +14,15 @@ import pandas as pd
 import sys
 import os
 
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.linear_model import LogisticRegression, Ridge
+from sklearn.dummy import DummyClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import (
-    GridSearchCV,
-    RandomizedSearchCV,
-    cross_validate,
-    train_test_split,
+    cross_validate
 )
-
+from joblib import dump, load
 
 if not sys.warnoptions:
     import warnings
@@ -36,15 +38,17 @@ def main(input_file,output_file):
     train = pd.read_csv(input_file)
  
 
-    #create split the train_df
+    # create split the train_df
     X_train, y_train = train.drop(columns=["quality_level"]), train["quality_level"]
   
-
+    
+    # define classifiers
     classifiers = {
-        "Logistic Regression": LogisticRegression(),
-        "Logistic Regression (balanced)": LogisticRegression(class_weight="balanced"),
-        "Random Forest": RandomForestClassifier(),
-        "Random Forest (balanced)": RandomForestClassifier(class_weight="balanced"),
+        "Logistic_Regression": LogisticRegression(),
+        "Random_Forest": RandomForestClassifier(),
+    "DummyClassifier": DummyClassifier(),
+    "SVC" : SVC(),
+    "K_Nearest_Neighbors": KNeighborsClassifier()
     }
 
 
@@ -72,16 +76,16 @@ def main(input_file,output_file):
             )
             df = pd.DataFrame(scores)
             results_df[name] = df.mean()
+            clf.fit(X_train, y_train)
+            # save the model
+            dump(clf, 'results/'+name+'.joblib')
         return pd.DataFrame(results_df)
 
 
 
-    res = score_with_metrics(
-        classifiers,
-        scoring=["accuracy", "f1", "recall", "precision", "average_precision", "roc_auc"],
-)
+    res = score_with_metrics(classifiers)
 
-
+    # saving the results table 
     try:
         res.to_csv(output_file, index = True)
     except:
