@@ -1,3 +1,5 @@
+# Author: Pan Fan, Chun Chieh Chang, Sakshi Jain
+# Date: 2020/11/27
 """Create train_df and test_df files .
 
 Usage: src/eda_figs.py <input_file> <input_file2> <output_file> <output_file2> 
@@ -24,7 +26,7 @@ def main(input_file, input_file2,output_file,output_file2):
     data_red = data_red.rename(columns=lambda x: x.replace(" ","_"))
 
     #creating levels for 'quality_level' column
-    data_red['quality_level'] = [True if x >= 6 else False for x in data_red['quality']]
+    data_red['quality_level'] = ["Excellent" if x >= 7 else "Good" if x >= 5 else "Bad" for x in data_red['quality']]
     data_red['wine_type']= "red"
 
 
@@ -33,7 +35,7 @@ def main(input_file, input_file2,output_file,output_file2):
     data_white = data_white.rename(columns=lambda x: x.replace(" ","_"))
 
     #creating levels for 'quality_level' column
-    data_white['quality_level'] = [True if x >= 6 else False for x in data_white['quality']]
+    data_white['quality_level'] = ["Excellent" if x >= 7 else "Good" if x >= 5 else "Bad" for x in data_white['quality']]
     data_white['wine_type']= "white"
 
     #merging red wine and white wine data set
@@ -47,11 +49,6 @@ def main(input_file, input_file2,output_file,output_file2):
     except:
         os.makedirs(os.path.dirname(output_file))
         train_df.to_csv(output_file, index = False)
-
-    try:
-        test_df.to_csv(output_file2, index = False)
-    except:
-        os.makedirs(os.path.dirname(output_file2))
         test_df.to_csv(output_file2, index = False)
 
 
