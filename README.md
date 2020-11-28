@@ -17,7 +17,7 @@ The data set used in this project is sourced from the UCI Machine Learning Repos
 
 ## Report
 
-A copy of the report can be found [here]()
+A copy of the report can be found [here](https://github.com/UBC-MDS/DSCI522_group17/blob/main/docs/report.md)
 
 
 ## Usage
