@@ -1,44 +1,33 @@
 # Wine Quality Prediction (DSCI522_group17)
 Group work for DSCI522 Our group  number is 17
 
-Date: 11/20/2020
+Date: 11/27/2020
 
 Team members: Pan Fan, Chun Chieh Chang and Sakshi Jain
 
 GitHub repository: https://github.com/UBC-MDS/DSCI522_group17
 
-## Introduction
+## Summary
+In this project we will build several models to try to predict wine quality given different physicochemical properties and wine type. We built a K-Nearest Neighbor model, Logistic Regression model, Random Forest Model, and Support Vector Machine model. After we built these models, we found out that Random Forest is the best performing model and it achieved a test score that is close to 1. This may be a misleading score because we only have 3 different classes to predict compared to 10 in the original dataset and hence the model possibly found a pattern to fit the data perfectly. In addition, there was class imbalance issue such that the number of observations of 'Bad' quality wine and 'Excellent' wine are significantly less than 'Good' quality wine. Hence, further investigation is needed before we can finalize our model.
 
-As somebody said that “Life is too short to drink bad wine.”, we decided to work on the wine dataset so that we can help in determining the quality of wine via its chemical composition.
+The data set used in this project is sourced from the UCI Machine Learning Repository and can be found [here](https://archive.ics.uci.edu/ml/datasets/Wine+Quality). In terms of the data, the two data sets record the physicochemical properties of the red and white variants of the Vinho Verde wine. We merged these two datasets together and created a new column `type of wine` to represent the wine type for each observation. The `quality_level` is the target we are interested in predicting and it represents the quality of the wine on a scale of 1 to 10. We will group the quality of wine into three categories and they are "Excellent" if `quality_level` is equal to or greater than 7, "Good" if `quality_level` is between 4 and 7(exclusive), and "Bad" if `quality_level` is less than or equal to 4. We also have a categorical variable `wine_type` that we will include as a feature. In total, we have 12 predictors and one output variable.
 
-Dataset: The data set used in this project is sourced from the UCI Machine Learning Repository and can be found [here](https://archive.ics.uci.edu/ml/datasets/Wine+Quality). Two datasets are included and one is for red wine while the other is for white wine. We will merge these two datasets together and create a new column `type of wine` to represent the wine type for each observation. In addition, we will group the quality of wine into three categories and they are "Bad", "Good", and "Excellent". In total, we have 12 predictors and one output variable.
 
-Predictors:
-1.	fixed acidity
-2.	volatile acidity
-3.	citric acid
-4.	residual sugar
-5.	chlorides
-6.	free sulfur dioxide
-7.	total sulfur dioxide
-8.	density
-9.	pH
-10.	sulphates
-11.	alcohol
-12.	type of wine
 
-Output variable:
-1.	quality (classes : "Excellent" , "Good", "Bad")
 
-## Objective of the Study:
+## Report
 
-We are interested in whether we can predict the quality of the wine by using physicochemical and its wine type. This is an interesting question because if we can indeed find the perfect formula to produce the perfect wine, we can start a wine company and make a lot of money off from it. Soon, we will take over the wine market and dominate the wine industry with our perfect wine!
+A copy of the report can be found [here]()
 
-In order to answer our research question, we will build a classification model with the features as physicochemical and the type of wine and the output as the quality of wine. In terms of exploratory data analysis, we will first split the data up into a training set and a testing set via a 0.75/0.25 split and perform the EDA on the training set. Since almost all of our predictors are continuous variables, we will first use pandas profiling to create a basic analysis on each of the predictor. Next, we will examine if the columns contain any missing values. Third, we will explore the predictors' distributions given different wine quality via seaborn using a pair plot. Finally, we will examine the distribution of wine quality to determine if there is any class imbalance issue.
 
-In terms of model building, we are planning to use models such as K-Nearest Neighbour, Decision Tree, Support Vector Machine, Logistic Regression, and Naive Bayes to make the predictions. After we finish building our models, we will also explore which features contribute the most in the prediction process. Finally, we will select the best model and re-fit the model on the training data and evaluate it on the test data. In terms of model evaluation, we will look at model accuracy as well as the confusion matrix. These analysis will be included in the final report.
+## Usage
 
-For now, you can find the result of our EDA [here](https://github.com/UBC-MDS/DSCI522_group17/tree/main/src) in a jupyter notebook.
+To replicate the analysis, clone this GitHub repository, install the dependencies listed below, and run the following commands at the command line/terminal from the root directory of this project:
+
+    sh runall.sh
+
+By running this shell script, it will first download the two data sets from source. Next, it will merge the two data sets together and split the data into training and test sets. Third, it will perform simple Exploratory data analysis and save the figure in the results/ folder. It will then transform the train and test set for model building and evaluation. Next, it will fit the models using the transformed data and evaluate the models using the transformed test data. Finally, the report will be rendered and saved in the docs/ folder and in it you can find all the figures, tables, and analysis pertaining to this project.
+
 
 ## Dependencies
 
@@ -49,14 +38,12 @@ Python 3.8.3 and Python packages:
 * pandas==1.0.5
 * seaborn==0.11.0
 * pandocfilters==1.4.2
+* scikit-learn== 0.23.2
 
 
-## Usage
-
-To download the data, please run the following script from the root of the project.
-
-    python src/data_download.py --url=https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv --delim=';' --filepath=data/raw/ --filename=winequality-red.csv
-    python src/data_download.py --url=https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv --delim=';' --filepath=data/raw/ --filename=winequality-white.csv
+R  4.0.2 and packages:
+* tidyverse==1.3.0
+* knitr==1.29
 
 ## License
 
