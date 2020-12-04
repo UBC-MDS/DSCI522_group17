@@ -2,7 +2,7 @@
 # Date: 2020/11/27
 """Create transformed train and test files .
 
-Usage: src/eda_figs.py <input_file> <input_file1> <output_file> <output_file1>
+Usage: src/pre.py <input_file> <input_file1> <output_file> <output_file1>
 
 Options:
 <input_file>     Path (including filename and file extension) to train file

@@ -2,7 +2,7 @@
 # Date: 2020/11/27
 """Compare the performance of different classifier and train the best model given cross_validate results .
 
-Usage: src/eda_figs.py <input_file> <input_file1> <output_file>
+Usage: src/clf_comp.py <input_file> <input_file1> <output_file>
 
 Options:
 <input_file>     Path (including filename and file extension) to transformed train file
