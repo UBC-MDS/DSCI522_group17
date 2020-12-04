@@ -2,7 +2,7 @@
 # Date: 2020/11/27
 """Create train_df and test_df files .
 
-Usage: src/eda_figs.py <input_file> <input_file2> <output_file> <output_file2> 
+Usage: src/dt_cr.py <input_file> <input_file2> <output_file> <output_file2> 
 
 Options:
 <input_file>     Path (including filename) to data file
@@ -49,6 +49,11 @@ def main(input_file, input_file2,output_file,output_file2):
     except:
         os.makedirs(os.path.dirname(output_file))
         train_df.to_csv(output_file, index = False)
+
+    try:
+        test_df.to_csv(output_file2, index = False)
+    except:
+        os.makedirs(os.path.dirname(output_file2))
         test_df.to_csv(output_file2, index = False)
 
 
