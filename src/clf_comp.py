@@ -2,12 +2,13 @@
 # Date: 2020/11/27
 """Compare the performance of different classifier and train the best model given cross_validate results .
 
-Usage: src/clf_comp.py <input_file> <input_file1> <output_file>
+Usage: src/clf_comp.py <input_file> <input_file1> <output_file> <output_file1>
 
 Options:
 <input_file>     Path (including filename and file extension) to transformed train file
 <input_file1>    Path (including filename and file extension) to transformed test file
 <output_file>   Path (including filename and file extension) to cross validate result file
+<output_file1>   Path (including filename and file extension) to store model predictions
 """
 
 from docopt import docopt
@@ -33,10 +34,10 @@ opt = docopt(__doc__)
 
 
 
-def main(input_file, input_file1, output_file):
+def main(input_file, input_file1, output_file, output_file1):
     # check if output folder exists
-    if not os.path.isdir(output_file):
-        os.makedirs(os.path.dirname(output_file))
+    #if not os.path.isdir(output_file):
+        #os.makedirs(os.path.dirname(output_file))
 
     # read train_df.csv
     train = pd.read_csv(input_file)
@@ -93,7 +94,7 @@ def main(input_file, input_file1, output_file):
     res = res.transpose()
 
     # saving the cv results table 
-    res.to_csv(output_file+'cv_results.csv', index = True)
+    #res.to_csv(output_file+'cv_results.csv', index = True)
     
     # fit the best model and save the results on evaluation on the test set
     best_model = res.idxmax()['test_score']
@@ -101,11 +102,18 @@ def main(input_file, input_file1, output_file):
     best_clf.fit(X_train, y_train)
     test_scores = best_clf.score(X_test, y_test)
     best_score = pd.DataFrame({'Model': [best_model], 'Test_Score':[test_scores]})
-    best_score.to_csv(output_file + 'BestModel.csv', index = False)
+    #best_score.to_csv(output_file + 'BestModel.csv', index = False)
     
     
+    try:
+        res.to_csv(output_file, index = False)
+        best_score.to_csv(output_file1, index = False)
+    except:
+        os.makedirs(os.path.dirname(output_file))
+        res.to_csv(output_file, index = False)
+        best_score.to_csv(output_file1, index = False)
     
     
 
 if __name__ == "__main__":
-    main(opt["<input_file>"], opt["<input_file1>"], opt["<output_file>"])
+    main(opt["<input_file>"], opt["<input_file1>"], opt["<output_file>"], opt["<output_file1>"])

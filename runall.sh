@@ -24,9 +24,10 @@ python src/eda_figs.py data/processed/train.csv results/boxplot.png results/dens
 
 python src/pre.py data/processed/train.csv data/processed/test.csv data/processed/train_pp.csv data/processed/test_pp.csv
 
-# fit transformed training dataset and compare the performance of different classification models (2 inputs , 1 outputs)
+# fit transformed training dataset and compare the performance of different classification models and run model predition to get results (2 inputs , 2 outputs)
 
-python src/clf_comp.py data/processed/train_pp.csv data/processed/test_pp.csv results/
+python src/clf_comp.py data/processed/train_pp.csv data/processed/test_pp.csv results/cs_results.csv results/Bestmodel.csv
+
 
 # render the report into an html file
 Rscript -e "rmarkdown::render('docs/report.Rmd')"
