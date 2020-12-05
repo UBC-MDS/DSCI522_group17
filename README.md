@@ -8,7 +8,7 @@ Team members: Pan Fan, Chun Chieh Chang and Sakshi Jain
 GitHub repository: https://github.com/UBC-MDS/DSCI522_group17
 
 ## Summary
-In this project we will build several models to try to predict wine quality given different physicochemical properties and wine type. We built a K-Nearest Neighbor model, Logistic Regression model, Random Forest Model, and Support Vector Machine model. After we built these models, we found out that Random Forest is the best performing model and it achieved a test score that is close to 1. This may be a misleading score because we only have 3 different classes to predict compared to 10 in the original dataset and hence the model possibly found a pattern to fit the data perfectly. In addition, there was class imbalance issue such that the number of observations of 'Bad' quality wine and 'Excellent' wine are significantly less than 'Good' quality wine. Hence, further investigation is needed before we can finalize our model.
+In this project we will build several models to try to predict wine quality given different physicochemical properties and wine type. We built a K-Nearest Neighbor model, Logistic Regression model, Random Forest Model, and Support Vector Machine model. After we built these models, we found out that Random Forest is the best performing model and it achieved a test score of 0.85. However, despite it being a good score, there is still room for improvement. From our cross validation results, we can see that we are overfitting with Random Forest. This is because we have not tune our hyperparameters. Hence, further investigation and tuning are needed before we can finalize our model.
 
 The data set used in this project is sourced from the UCI Machine Learning Repository and can be found [here](https://archive.ics.uci.edu/ml/datasets/Wine+Quality). In terms of the data, the two data sets record the physicochemical properties of the red and white variants of the Vinho Verde wine. We merged these two datasets together and created a new column `type of wine` to represent the wine type for each observation. The `quality_level` is the target we are interested in predicting and it represents the quality of the wine on a scale of 1 to 10. We will group the quality of wine into three categories and they are "Excellent" if `quality_level` is equal to or greater than 7, "Good" if `quality_level` is between 4 and 7(exclusive), and "Bad" if `quality_level` is less than or equal to 4. We also have a categorical variable `wine_type` that we will include as a feature. In total, we have 12 predictors and one output variable.
 
@@ -24,9 +24,13 @@ A copy of the report can be found [here](https://github.com/UBC-MDS/DSCI522_grou
 
 To replicate the analysis, clone this GitHub repository, install the dependencies listed below, and run the following commands at the command line/terminal from the root directory of this project:
 
-    sh runall.sh
+    make all
 
-By running this shell script, it will first download the two data sets from source. Next, it will merge the two data sets together and split the data into training and test sets. Third, it will perform simple Exploratory data analysis and save the figure in the results/ folder. It will then transform the train and test set for model building and evaluation. Next, it will fit the models using the transformed data and evaluate the models using the transformed test data. Finally, the report will be rendered and saved in the docs/ folder and in it you can find all the figures, tables, and analysis pertaining to this project.
+To delete the results, please run the following commands at the command line/terminal from the root directory of this project:
+    make clean
+
+The Makefile graph is as follows:
+    ![](Makefile.png)
 
 
 ## Dependencies

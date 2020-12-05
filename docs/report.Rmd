@@ -23,7 +23,7 @@ test_score <- best_model_result %>% select(Test_Score) %>% pull()
 ```
 
 # Summary
-In this project we built several models to try to predict wine quality given different physicochemical properties and wine type. We built a K-Nearest Neighbor model, Logistic Regression model, Random Forest Model, and Support Vector Machine model. After we built these models, we found out that `r best_model` is the best performing model and it achieved a test score of `r round(test_score, 2)`. However, despite it being a good score, it could be very misleading due to us predicting less classes compared to the original data as well as the existence of imbalance classes. Hence, further analysis is needed before we could conclude on which model to pick as our finalized model. 
+In this project we built several models to try to predict wine quality given different physicochemical properties and wine type. We built a K-Nearest Neighbor model, Logistic Regression model, Random Forest Model, and Support Vector Machine model. After we built these models, we found out that `r best_model` is the best performing model and it achieved a test score of `r round(test_score, 2)`. However, despite it being a good score, there is still room for improvement. From our cross validation results, we can see that we are overfitting with `r best_model`. This is because we have not tune our hyperparameters. Hence, further investigation and tuning are needed before we can finalize our model. 
 
 # Introduction
 
@@ -72,7 +72,7 @@ knitr::kable(cv_results, caption = 'Table 1. 5 Fold Cross Validation Results')
 ```
 
 
-Looking at Table 2, our model achieves an accuracy of `r round(test_score,2)` in predicting the correct wine quality given physicochemical and wine types, which is an unreasonably high score. This may be because we only have 3 different classes to predict and hence the model is able to find a pattern to fit the data perfectly. In addition, there is class imbalance issue such that the number of observations of 'Bad' quality wine and 'Excellent' wine are significantly less than 'Good' quality wine. Hence, further investigation is needed before we can finalize our model. 
+Looking at Table 2, our model achieves an accuracy of `r round(test_score,2)` in predicting the correct wine quality given physicochemical and wine types, which in our opinion is a relatively good score. However, there is still room for improvement. From our cross validation results, we can see that we are overfitting with `r best_model`. This is because we have not tune our hyperparameters. Hence, further investigation and tuning are needed before we can finalize our model. 
 
 ```{r}
 knitr::kable(best_model_result, caption = 'Table 2. Best Model and its Score on Test Set')
@@ -80,6 +80,6 @@ knitr::kable(best_model_result, caption = 'Table 2. Best Model and its Score on 
 
 # Discussion
 
-At first glance, one can argue that `r round(test_score,2)` is a good score. However, this score seems a little unreasonable due to several reasons. As mentioned in the Result section, the original data has 10 different classes and here we are only predicting 3 classes. Hence, there is a possibility that the model found a pattern to predict the classes perfectly. In addition, we have a class imbalance issue in which the number of observations of 'Bad' quality wine and 'Excellent' wine are significantly less than 'Good' quality wine. Hence, we need to investigate further before we can make our conclusion.
+At first glance, one can argue that `r round(test_score,2)` is a good score. However, due to overfitting, we can still improve our model through hyperparameter tuning. Hence, our next step in this project would be to tune our hyperparameter either through grid search or randomized search.
 
 # References
