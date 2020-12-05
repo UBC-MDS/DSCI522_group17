@@ -27,6 +27,7 @@ To replicate the analysis, clone this GitHub repository, install the dependencie
     make all
 
 To delete the results, please run the following commands at the command line/terminal from the root directory of this project:
+
     make clean
 
 The Makefile graph is as follows:
