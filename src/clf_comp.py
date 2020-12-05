@@ -35,9 +35,7 @@ opt = docopt(__doc__)
 
 
 def main(input_file, input_file1, output_file, output_file1):
-    # check if output folder exists
-    #if not os.path.isdir(output_file):
-        #os.makedirs(os.path.dirname(output_file))
+    
 
     # read train_df.csv
     train = pd.read_csv(input_file)
@@ -48,7 +46,11 @@ def main(input_file, input_file1, output_file, output_file1):
     X_train, y_train = train.drop(columns=["quality_level"]), train["quality_level"]
     X_test, y_test = test.drop(columns=["quality_level"]), test["quality_level"]
   
-    
+    # check if target folder exists
+    try:
+        os.makedirs(os.path.dirname(output_file))
+    except FileExistsError:
+        pass
     # define classifiers
     classifiers = {
         "Logistic_Regression": LogisticRegression(),
@@ -85,33 +87,21 @@ def main(input_file, input_file1, output_file, output_file1):
             results_df[name] = df.mean()
             clf.fit(X_train, y_train)
             # save the model
-            dump(clf, output_file+name+'.joblib')
+            dump(clf, 'results/'+name+'.joblib')
         return pd.DataFrame(results_df)
 
 
 
     res = score_with_metrics(classifiers)
     res = res.transpose()
-
-    # saving the cv results table 
-    #res.to_csv(output_file+'cv_results.csv', index = True)
-    
-    # fit the best model and save the results on evaluation on the test set
     best_model = res.idxmax()['test_score']
     best_clf = classifiers[best_model]
     best_clf.fit(X_train, y_train)
     test_scores = best_clf.score(X_test, y_test)
     best_score = pd.DataFrame({'Model': [best_model], 'Test_Score':[test_scores]})
-    #best_score.to_csv(output_file + 'BestModel.csv', index = False)
-    
-    
-    try:
-        res.to_csv(output_file, index = False)
-        best_score.to_csv(output_file1, index = False)
-    except:
-        os.makedirs(os.path.dirname(output_file))
-        res.to_csv(output_file, index = False)
-        best_score.to_csv(output_file1, index = False)
+    res.to_csv(output_file, index = True)
+    best_score.to_csv(output_file1, index = False)
+
     
     
 
