@@ -1,16 +1,14 @@
 Predicting Wine Quality Given Physicochemical and Wine Type
 ================
 Chun Chieh Chang, Sakshi Jain, Pan Fan
-2020/11/27 (Updated: 2020-12-12)
+2020/11/27 (Updated: 2020-12-13)
 
 -   [Summary](#summary)
 -   [Introduction](#introduction)
 -   [Methods](#methods)
     -   [Data](#data)
     -   [Analysis](#analysis)
--   [Results](#results)
--   [Discussion](#discussion)
--   [Future steps:](#future-steps)
+-   [Results and Discussion](#results-and-discussion)
 -   [References](#references)
 
 # Summary
@@ -18,13 +16,20 @@ Chun Chieh Chang, Sakshi Jain, Pan Fan
 In this project we built several models to try to predict wine quality
 given different physicochemical properties and wine type. We built a
 K-Nearest Neighbor model, Logistic Regression model, Random Forest
-Model, and Support Vector Machine model. After we built these models, we
-found out that Random\_Forest is the best performing model and it
-achieved a test score of 0.85. However, despite it being a good score,
-there is still room for improvement. From our cross validation results,
-we can see that we are overfitting with Random\_Forest. This is because
-we have not tune our hyperparameters. Hence, further investigation and
-tuning are needed before we can finalize our model.
+Model, and Support Vector Machine model. Since there exists an issue of
+class imbalance in the data set, we will be using f1-score as our
+validation metric. After we built these models, we found out that Random
+Forest is the best performing model and it achieved a test score of
+0.63. However, despite it being a good score, there is still room for
+improvement. From our cross validation results, we can see that we are
+overfitting with Random Forest even after hyperparameter tuning. A
+solution for this problem will be to increase the number of data when
+training the model, which is not possible because we have no ways to
+collect additional data. Another solution for this problem will be to
+use a more powerful computer to search for more hyperparameter
+combinations. At the current state we can conclude that our model is
+usable because it performs better than our baseline model by a large
+margin and also the accuracy of prediction is over 60%.
 
 # Introduction
 
@@ -81,9 +86,9 @@ presenting our results, we will use R (R Core Team 2020), tidyverse
 package(Wickham et al. 2019), and the knitr package(Xie 2014) to present
 our results. If you are interested in the codes that were used to build
 our model, they can be found at
-<a href="https://github.com/UBC-MDS/DSCI522_group17/blob/main/src/" class="uri">https://github.com/UBC-MDS/DSCI522_group17/blob/main/src/</a>
+<https://github.com/UBC-MDS/DSCI522_group17/blob/main/src/>
 
-# Results
+# Results and Discussion
 
 We will first begin by examining the distribution of each numeric
 feature given the class we are trying to predict. Figure 1 plots the
@@ -97,9 +102,29 @@ can see that most features are right skewed.
 
 <div class="figure">
 
-<img src="../results/densityplot.png" alt="Fig 1. Density Plot of Numeric Features Given Wine Quality" width="120%" height="120%" />
+<img src="../results/densityplot.png" alt="Fig 1. Density Plot of Numeric Features Given Wine Quality" width="100%" height="100%" />
 <p class="caption">
 Fig 1. Density Plot of Numeric Features Given Wine Quality
+</p>
+
+</div>
+
+Next, we examine if there is any class imbalance issue. Figure 2 plots
+the count of each class in our training data. As we can see, we have
+class imbalance issue where the number of observations for `Good` class
+far outweighs than that of `Excellent` class, which is our target of
+prediction. To overcome this problem, we decided to use f1 score as our
+validation metric where the average method is set to `weighted`. We
+chose weighted f1 score because it calculates the f1 score for each
+class and calculates an average score given the class proportion. In
+addition, when we build our models, the class weight parameter will be
+set to `balanced` to account for the class imbalance.
+
+<div class="figure">
+
+<img src="../results/class_dist.png" alt="Fig 2. Distribution of Wine Quality" width="50%" height="50%" />
+<p class="caption">
+Fig 2. Distribution of Wine Quality
 </p>
 
 </div>
@@ -107,42 +132,47 @@ Fig 1. Density Plot of Numeric Features Given Wine Quality
 We used cross validation with the default cv of 5 to fit our models and
 obtained the mean statistics of each model. The scoring metric we
 decided to use is accuracy. The summary table is shown in Table 1 below.
-From observing the table, we used the model with the highest test score
-as our main model. In this case, the best model was Random\_Forest so we
-refitted Random\_Forest on our training set and evaluated the model on
-the test set.
+From observing the table, we can see that the model Random Forest has
+the best validation f1 score.
 
 | Models                | validation\_score | train\_score |
 |:----------------------|------------------:|-------------:|
-| Logistic\_Regression  |         0.7818141 |    0.7828409 |
-| Random\_Forest        |         0.8394933 |    1.0000000 |
-| DummyClassifier       |         0.6219222 |    0.6287456 |
-| SVC                   |         0.7945407 |    0.8086003 |
-| K\_Nearest\_Neighbors |         0.7943358 |    0.8539104 |
+| Logistic\_Regression  |         0.5219117 |    0.5257318 |
+| Random\_Forest        |         0.6195363 |    1.0000000 |
+| DummyClassifier       |         0.1745093 |    0.1718379 |
+| SVC                   |         0.5648274 |    0.5985701 |
+| K\_Nearest\_Neighbors |         0.5492148 |    0.6883396 |
 
-Table 1. 5 Fold Cross Validation Results
+Table 1. 5 Fold Cross Validation Results of Untuned Models
 
-Our model achieves an accuracy of 0.85 in predicting the correct wine
-quality given physicochemical and wine types, which in our opinion is a
-relatively good score. However, there is still room for improvement.
-From our cross validation results, we can see that we are overfitting
-with Random\_Forest. This is because we have not tune our
-hyperparameters. Hence, further investigation and tuning are needed
-before we can finalize our model.
+After our initial cross validation test, we decided to hyperparameter
+tune the Random Forest Model and Logistic Regression Model. We chose
+these two models because Random Forest was our best model and Logistic
+Regression was the easiest model in terms of interpretability. Table 2
+presents the cross validation results of the tuned Random Forest and
+Logistic Regression models. From the results below, we can see that our
+validation scores for both models only improved slightly compared to the
+default model with no tuning.
 
-# Discussion
+| Models              | validation\_score | train\_score |
+|:--------------------|------------------:|-------------:|
+| Random Forest       |         0.6208297 |    1.0000000 |
+| Logistic Regression |         0.5258040 |    0.5285105 |
 
-At first glance, one can argue that 0.85 is a good score. However, due
-to overfitting, we can still improve our model through hyperparameter
-tuning. Hence, our next step in this project would be to tune our
-hyperparameter either through grid search or randomized search.
+Table 2. 5 Fold Cross Validation Results of Tuned Models
 
-# Future steps:
-
-We have three classes: “Bad,” “Good” and “Excellent” under “Quality
-level” variable. In the analysis, we need to address the issue of class
-imbalance as the majority of data is coming under “Good” wine. This can
-impact the selection of metric and choice model technique in feature.
+Finally, we fitted the tuned Random Forest model on the training set and
+calculated the f1-score on the test set. The final f1 test score is
+0.63. Hence, our model achieved an accuracy of 0.63 in predicting the
+correct wine quality given physicochemical and wine types, which in our
+opinion is a relatively good score. However, there is still room for
+improvement as we can see from our cross validation that we are still
+overfitting with Random Forest. To improve our model even further, we
+would need more training data to train our model as well as a more
+powerful computer to search through the hyperparameter space. At the
+current state we can conclude that our model is usable because it
+performs better than our baseline model by a large margin and also the
+accuracy of prediction is over 60%.
 
 # References
 
