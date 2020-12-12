@@ -26,6 +26,7 @@ test_score <- best_model_result %>% select(Test_Score) %>% pull()
 ```
 
 # Summary
+
 In this project we built several models to try to predict wine quality given different physicochemical properties and wine type. We built a K-Nearest Neighbor model, Logistic Regression model, Random Forest Model, and Support Vector Machine model. After we built these models, we found out that `r best_model` is the best performing model and it achieved a test score of `r round(test_score, 2)`. However, despite it being a good score, there is still room for improvement. From our cross validation results, we can see that we are overfitting with `r best_model`. This is because we have not tune our hyperparameters. Hence, further investigation and tuning are needed before we can finalize our model. 
 
 # Introduction
@@ -52,18 +53,11 @@ To build our models, we will be using Python[@Python] and it's associated librar
 
 # Results
 
-We will first begin by examining the box plots of each numeric features. Figure 1 presents the box plots of each numeric feature in the data set. We can see that most features are right skewed with a lot of outliers represented by the black points. The features density and alcohol, however, only have two outliers respectively.
-```{r fig.cap = "Fig 1. Boxplot of Numeric Variables", out.width = '120%', out.height = '120%'}
-knitr::include_graphics('../results/boxplot.png')
-```
+We will first begin by examining the distribution of each numeric feature given the class we are trying to predict. Figure 1 plots the density of each numeric feature given wine quality. From examining each density plot, we observed that there are a lot of overlaps between the density of each class. However, The feature `Density` and `Alcohol` seem to have different mean and spread given wine quality. This is a great sign as these two features could be good features that allow our machine learning model to distinguish different classes effectively. Also, We can see that most features are right skewed.  
 
-Next, we will examine the distribution of each numeric feature given the class we are trying to predict. Figure 2 plots the density of each numeric feature given wine quality. From examining each density plot, we observed that there are a lot of overlaps between the density of each class. However, The feature `Density` and `Alcohol` seem to have different mean and spread given wine quality. This is a great sign as these two features could be good features that allow our machine learning model to distinguish different classes effectively. 
-
-```{r fig.cap = "Fig 2. Density Plot of Numeric Features Given Wine Quality", out.width = '120%', out.height = '120%'}
+```{r fig.cap = "Fig 1. Density Plot of Numeric Features Given Wine Quality", out.width = '120%', out.height = '120%'}
 knitr::include_graphics('../results/densityplot.png')
 ```
-
-
 
 We used cross validation with the default cv of 5 to fit our models and obtained the mean statistics of each model. The scoring metric we decided to use is accuracy. The summary table is shown in Table 1 below. From observing the table, we used the model with the highest test score as our main model. In this case, the best model was `r best_model` so we refitted `r best_model` on our training set and evaluated the model on the test set. 
 
@@ -71,15 +65,14 @@ We used cross validation with the default cv of 5 to fit our models and obtained
 knitr::kable(cv_results, caption = 'Table 1. 5 Fold Cross Validation Results')
 ```
 
-
-Looking at Table 2, our model achieves an accuracy of `r round(test_score,2)` in predicting the correct wine quality given physicochemical and wine types, which in our opinion is a relatively good score. However, there is still room for improvement. From our cross validation results, we can see that we are overfitting with `r best_model`. This is because we have not tune our hyperparameters. Hence, further investigation and tuning are needed before we can finalize our model. 
-
-```{r}
-knitr::kable(best_model_result, caption = 'Table 2. Best Model and its Score on Test Set')
-```
+Our model achieves an accuracy of `r round(test_score,2)` in predicting the correct wine quality given physicochemical and wine types, which in our opinion is a relatively good score. However, there is still room for improvement. From our cross validation results, we can see that we are overfitting with `r best_model`. This is because we have not tune our hyperparameters. Hence, further investigation and tuning are needed before we can finalize our model. 
 
 # Discussion
 
 At first glance, one can argue that `r round(test_score,2)` is a good score. However, due to overfitting, we can still improve our model through hyperparameter tuning. Hence, our next step in this project would be to tune our hyperparameter either through grid search or randomized search.
+
+# Future steps: 
+
+We have three classes: "Bad", "Good" and "Excellent" under "Quality level" variable. In the analysis, we need to address the issue of class imbalance as the majority of data is coming under "Good" wine. This can impact the selection of metric and choice model technique in feature.
 
 # References

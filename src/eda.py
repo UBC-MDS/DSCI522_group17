@@ -2,7 +2,7 @@
 # Date: 2020/11/27
 """Create train_df and test_df files .
 
-Usage: src/eda_figs.py <input_file> <output_file> <output_file1> <output_file2>
+Usage: src/eda.py <input_file> <output_file> <output_file1> <output_file2>
 
 Options:
 <input_file>     Path (including filename) to data file
