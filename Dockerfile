@@ -1,3 +1,8 @@
+# DSCI_522_Group17 Project Dockerfile
+# Author: Chun Chieh Chang, Sakshi Jain, Pan Fan
+# Date: 2020/12/12
+
+
 # Build from base image
 FROM rocker/tidyverse
 
