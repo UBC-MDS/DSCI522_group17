@@ -21,6 +21,7 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_6
     /opt/conda/bin/conda clean -afy && \
     /opt/conda/bin/conda update -n base -c defaults conda
 
+# set environment
 ENV PATH /opt/conda/bin:$PATH
 
 # reinstall seaborn to resolve version conflict
