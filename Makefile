@@ -14,8 +14,8 @@ data/processed/train.csv data/processed/test.csv : data/raw/winequality-red.csv 
 	python src/data_creation.py  data/raw/winequality-red.csv data/raw/winequality-white.csv data/processed/train.csv data/processed/test.csv
 
 # create data visualization including one boxplot, one density plot and one correlation plot 
-results/boxplot.png results/densityplot.png results/cor.png : src/eda.py data/processed/train.csv
-	python src/eda.py data/processed/train.csv results/boxplot.png results/densityplot.png results/cor.png
+results/boxplot.png results/densityplot.png results/cor.png results/class_dist.png : src/eda.py data/processed/train.csv
+	python src/eda.py data/processed/train.csv results/boxplot.png results/densityplot.png results/cor.png results/class_dist.png
 
 # transform train and test dataset 
 data/processed/train_pp.csv data/processed/test_pp.csv : src/preprocess.py data/processed/train.csv data/processed/test.csv
@@ -24,13 +24,13 @@ data/processed/train_pp.csv data/processed/test_pp.csv : src/preprocess.py data/
 
 
 # fit transformed training dataset and compare the performance of different classification models
-results/cv_results.csv results/bestmodel.csv : src/clf_comparison.py data/processed/train_pp.csv data/processed/test_pp.csv
-	python src/clf_comparison.py data/processed/train_pp.csv data/processed/test_pp.csv results/cv_results.csv results/bestmodel.csv
+results/cv_results.csv results/bestmodel_untuned.csv results/tuned_cv_results.csv results/best_tuned_model.csv  : src/clf_comparison.py data/processed/train_pp.csv data/processed/test_pp.csv
+	python src/clf_comparison.py data/processed/train_pp.csv data/processed/test_pp.csv results/cv_results.csv results/bestmodel_untuned.csv
 
 
 # render the report
 
-docs/report.md docs/report.html : docs/report.Rmd results/boxplot.png results/densityplot.png results/cv_results.csv results/bestmodel.csv
+docs/report.md docs/report.html : docs/report.Rmd results/class_dist.png results/densityplot.png results/cv_results.csv results/bestmodel_untuned.csv results/tuned_cv_results.csv results/best_tuned_model.csv
 	Rscript -e "rmarkdown::render('docs/report.Rmd', output_format = 'all')"
 
 clean:
