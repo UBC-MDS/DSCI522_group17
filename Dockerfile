@@ -16,8 +16,12 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_6
     /opt/conda/bin/conda clean -afy && \
     /opt/conda/bin/conda update -n base -c defaults conda
 
+ENV PATH /opt/conda/bin:$PATH
 
-# install Python Packages
-conda install -y docopt=0.6.*
+# reinstall seaborn to resolve version conflict
+RUN conda remove -y seaborn
+RUN conda install -y seaborn=0.11.*
 
-#
+#install other Python Packages
+RUN conda install -y docopt=0.6.*
+RUN conda install -y scikit-learn=0.23.*
