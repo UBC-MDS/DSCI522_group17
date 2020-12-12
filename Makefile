@@ -24,16 +24,14 @@ data/processed/train_pp.csv data/processed/test_pp.csv : src/pre.py data/process
 
 
 # fit transformed training dataset and compare the performance of different classification models
-results/cv_results.csv results/Bestmodel.csv : src/clf_comp.py data/processed/train_pp.csv data/processed/test_pp.csv
-	python src/clf_comp.py data/processed/train_pp.csv data/processed/test_pp.csv results/cv_results.csv results/Bestmodel.csv
+results/cv_results.csv results/bestmodel.csv : src/clf_comp.py data/processed/train_pp.csv data/processed/test_pp.csv
+	python src/clf_comp.py data/processed/train_pp.csv data/processed/test_pp.csv results/cv_results.csv results/bestmodel.csv
 
 
 # render the report
-docs/report.md : docs/report.Rmd results/boxplot.png results/densityplot.png results/cv_results.csv results/Bestmodel.csv 
-	Rscript -e "rmarkdown::render('docs/report.Rmd')"
-docs/report.html : docs/report.Rmd results/boxplot.png results/densityplot.png results/cv_results.csv results/Bestmodel.csv
-	Rscript -e "rmarkdown::render('docs/report.Rmd', output_format = 'github_document')"
 
+docs/report.md docs/report.html : docs/report.Rmd results/boxplot.png results/densityplot.png results/cv_results.csv results/bestmodel.csv
+	Rscript -e "rmarkdown::render('docs/report.Rmd', output_format = 'all')"
 
 clean:
 	rm -rf data/raw/*.csv

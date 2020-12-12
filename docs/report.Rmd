@@ -6,6 +6,8 @@ date: "2020/11/27 (Updated: `r Sys.Date()`)"
 output: 
   html_document:
     toc: true
+  github_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -17,8 +19,9 @@ library(tidyverse)
 ```{r echo = FALSE, include=FALSE}
 cv_results <- read_csv('../results/cv_results.csv')
 cv_results <- cv_results %>% rename(Models = X1)
-best_model <- cv_results %>% arrange(-test_score) %>% slice(1) %>% pull(Models)
-best_model_result <- read_csv('../results/BestModel.csv')
+cv_results <- cv_results %>% select(-c(fit_time,score_time)) %>% rename(validation_score = test_score)
+best_model <- cv_results %>% arrange(-validation_score) %>% slice(1) %>% pull(Models)
+best_model_result <- read_csv('../results/bestModel.csv')
 test_score <- best_model_result %>% select(Test_Score) %>% pull()
 ```
 
@@ -59,9 +62,6 @@ Next, we will examine the distribution of each numeric feature given the class w
 ```{r fig.cap = "Fig 2. Density Plot of Numeric Features Given Wine Quality", out.width = '120%', out.height = '120%'}
 knitr::include_graphics('../results/densityplot.png')
 ```
-
-
-
 
 
 
