@@ -1,7 +1,16 @@
 Predicting Wine Quality Given Physicochemical and Wine Type
 ================
 Chun Chieh Chang, Sakshi Jain, Pan Fan
-2020/11/27 (Updated: 2020-12-05)
+2020/11/27 (Updated: 2020-12-12)
+
+-   [Summary](#summary)
+-   [Introduction](#introduction)
+-   [Methods](#methods)
+    -   [Data](#data)
+    -   [Analysis](#analysis)
+-   [Results](#results)
+-   [Discussion](#discussion)
+-   [References](#references)
 
 # Summary
 
@@ -71,7 +80,7 @@ presenting our results, we will use R (R Core Team 2020), tidyverse
 package(Wickham et al. 2019), and the knitr package(Xie 2014) to present
 our results. If you are interested in the codes that were used to build
 our model, they can be found at
-<https://github.com/UBC-MDS/DSCI522_group17/blob/main/src/>
+<a href="https://github.com/UBC-MDS/DSCI522_group17/blob/main/src/" class="uri">https://github.com/UBC-MDS/DSCI522_group17/blob/main/src/</a>
 
 # Results
 
@@ -116,13 +125,13 @@ as our main model. In this case, the best model was Random\_Forest so we
 refitted Random\_Forest on our training set and evaluated the model on
 the test set.
 
-| Models                | fit\_time | score\_time | test\_score | train\_score |
-|:----------------------|----------:|------------:|------------:|-------------:|
-| Logistic\_Regression  | 0.0793908 |   0.0020545 |   0.7818141 |    0.7828409 |
-| Random\_Forest        | 0.5098366 |   0.0215448 |   0.8390837 |    0.9999487 |
-| DummyClassifier       | 0.0022249 |   0.0010856 |   0.6264405 |    0.6271033 |
-| SVC                   | 0.2948343 |   0.0383937 |   0.7945407 |    0.8086003 |
-| K\_Nearest\_Neighbors | 0.0061073 |   0.0586025 |   0.7943358 |    0.8539104 |
+| Models                | validation\_score | train\_score |
+|:----------------------|------------------:|-------------:|
+| Logistic\_Regression  |         0.7818141 |    0.7828409 |
+| Random\_Forest        |         0.8394933 |    1.0000000 |
+| DummyClassifier       |         0.6219222 |    0.6287456 |
+| SVC                   |         0.7945407 |    0.8086003 |
+| K\_Nearest\_Neighbors |         0.7943358 |    0.8539104 |
 
 Table 1. 5 Fold Cross Validation Results
 
@@ -136,7 +145,7 @@ before we can finalize our model.
 
 | Model          | Test\_Score |
 |:---------------|------------:|
-| Random\_Forest |   0.8473846 |
+| Random\_Forest |   0.8510769 |
 
 Table 2. Best Model and its Score on Test Set
 
