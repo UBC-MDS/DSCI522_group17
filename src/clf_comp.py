@@ -53,10 +53,10 @@ def main(input_file, input_file1, output_file, output_file1):
         pass
     # define classifiers
     classifiers = {
-        "Logistic_Regression": LogisticRegression(),
-        "Random_Forest": RandomForestClassifier(),
-    "DummyClassifier": DummyClassifier(),
-    "SVC" : SVC(),
+        "Logistic_Regression": LogisticRegression(random_state = 123),
+        "Random_Forest": RandomForestClassifier(random_state = 123),
+    "DummyClassifier": DummyClassifier(random_state = 123),
+    "SVC" : SVC(random_state = 123),
     "K_Nearest_Neighbors": KNeighborsClassifier()
     }
 
