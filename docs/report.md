@@ -10,6 +10,7 @@ Chun Chieh Chang, Sakshi Jain, Pan Fan
     -   [Analysis](#analysis)
 -   [Results](#results)
 -   [Discussion](#discussion)
+-   [Future steps:](#future-steps)
 -   [References](#references)
 
 # Summary
@@ -84,35 +85,21 @@ our model, they can be found at
 
 # Results
 
-We will first begin by examining the box plots of each numeric features.
-Figure 1 presents the box plots of each numeric feature in the data set.
-We can see that most features are right skewed with a lot of outliers
-represented by the black points. The features density and alcohol,
-however, only have two outliers respectively.
+We will first begin by examining the distribution of each numeric
+feature given the class we are trying to predict. Figure 1 plots the
+density of each numeric feature given wine quality. From examining each
+density plot, we observed that there are a lot of overlaps between the
+density of each class. However, The feature `Density` and `Alcohol` seem
+to have different mean and spread given wine quality. This is a great
+sign as these two features could be good features that allow our machine
+learning model to distinguish different classes effectively. Also, We
+can see that most features are right skewed.
 
 <div class="figure">
 
-<img src="../results/boxplot.png" alt="Fig 1. Boxplot of Numeric Variables" width="120%" height="120%" />
+<img src="../results/densityplot.png" alt="Fig 1. Density Plot of Numeric Features Given Wine Quality" width="120%" height="120%" />
 <p class="caption">
-Fig 1. Boxplot of Numeric Variables
-</p>
-
-</div>
-
-Next, we will examine the distribution of each numeric feature given the
-class we are trying to predict. Figure 2 plots the density of each
-numeric feature given wine quality. From examining each density plot, we
-observed that there are a lot of overlaps between the density of each
-class. However, The feature `Density` and `Alcohol` seem to have
-different mean and spread given wine quality. This is a great sign as
-these two features could be good features that allow our machine
-learning model to distinguish different classes effectively.
-
-<div class="figure">
-
-<img src="../results/densityplot.png" alt="Fig 2. Density Plot of Numeric Features Given Wine Quality" width="120%" height="120%" />
-<p class="caption">
-Fig 2. Density Plot of Numeric Features Given Wine Quality
+Fig 1. Density Plot of Numeric Features Given Wine Quality
 </p>
 
 </div>
@@ -135,19 +122,13 @@ the test set.
 
 Table 1. 5 Fold Cross Validation Results
 
-Looking at Table 2, our model achieves an accuracy of 0.85 in predicting
-the correct wine quality given physicochemical and wine types, which in
-our opinion is a relatively good score. However, there is still room for
-improvement. From our cross validation results, we can see that we are
-overfitting with Random\_Forest. This is because we have not tune our
+Our model achieves an accuracy of 0.85 in predicting the correct wine
+quality given physicochemical and wine types, which in our opinion is a
+relatively good score. However, there is still room for improvement.
+From our cross validation results, we can see that we are overfitting
+with Random\_Forest. This is because we have not tune our
 hyperparameters. Hence, further investigation and tuning are needed
 before we can finalize our model.
-
-| Model          | Test\_Score |
-|:---------------|------------:|
-| Random\_Forest |   0.8510769 |
-
-Table 2. Best Model and its Score on Test Set
 
 # Discussion
 
@@ -155,6 +136,13 @@ At first glance, one can argue that 0.85 is a good score. However, due
 to overfitting, we can still improve our model through hyperparameter
 tuning. Hence, our next step in this project would be to tune our
 hyperparameter either through grid search or randomized search.
+
+# Future steps:
+
+We have three classes: “Bad,” “Good” and “Excellent” under “Quality
+level” variable. In the analysis, we need to address the issue of class
+imbalance as the majority of data is coming under “Good” wine. This can
+impact the selection of metric and choice model technique in feature.
 
 # References
 
