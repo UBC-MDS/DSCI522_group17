@@ -18,16 +18,18 @@ library(tidyverse)
 
 ```{r echo = FALSE, include=FALSE}
 cv_results <- read_csv('../results/cv_results.csv')
-cv_results <- cv_results %>% rename(Models = X1)
-cv_results <- cv_results %>% select(-c(fit_time,score_time)) %>% rename(validation_score = test_score)
-best_model <- cv_results %>% arrange(-validation_score) %>% slice(1) %>% pull(Models)
-best_model_result <- read_csv('../results/bestModel.csv')
+cv_results <- cv_results %>% rename(Models = X1) %>%
+    select(-c(fit_time,score_time)) %>% rename(validation_score = test_score)
+tuned_cv_results <- read_csv('../results/tuned_cv_results.csv')
+tuned_cv_results <- tuned_cv_results %>% rename(Models = X1) %>% select(-c(fit_time,score_time)) %>% rename(validation_score = test_score)
+best_model_result <- read_csv('../results/best_tuned_model.csv')
+best_model <- best_model_result %>% select(Model) %>% pull()
 test_score <- best_model_result %>% select(Test_Score) %>% pull()
 ```
 
 # Summary
 
-In this project we built several models to try to predict wine quality given different physicochemical properties and wine type. We built a K-Nearest Neighbor model, Logistic Regression model, Random Forest Model, and Support Vector Machine model. After we built these models, we found out that `r best_model` is the best performing model and it achieved a test score of `r round(test_score, 2)`. However, despite it being a good score, there is still room for improvement. From our cross validation results, we can see that we are overfitting with `r best_model`. This is because we have not tune our hyperparameters. Hence, further investigation and tuning are needed before we can finalize our model. 
+In this project we built several models to try to predict wine quality given different physicochemical properties and wine type. We built a K-Nearest Neighbor model, Logistic Regression model, Random Forest Model, and Support Vector Machine model. Since there exists an issue of class imbalance in the data set, we will be using f1-score as our validation metric. After we built these models, we found out that `r best_model` is the best performing model and it achieved a test score of `r round(test_score, 2)`. However, despite it being a good score, there is still room for improvement. From our cross validation results, we can see that we are overfitting with `r best_model` even after hyperparameter tuning. A solution for this problem will be to increase the number of data when training the model, which is not possible because we have no ways to collect additional data. Another solution for this problem will be to use a more powerful computer to search for more hyperparameter combinations. At the current state we can conclude that our model is usable because it performs better than our baseline model by a large margin and also the accuracy of prediction is over 60%.
 
 # Introduction
 
@@ -51,28 +53,38 @@ To build our models, we will be using Python[@Python] and it's associated librar
 
 
 
-# Results
+# Results and Discussion
 
 We will first begin by examining the distribution of each numeric feature given the class we are trying to predict. Figure 1 plots the density of each numeric feature given wine quality. From examining each density plot, we observed that there are a lot of overlaps between the density of each class. However, The feature `Density` and `Alcohol` seem to have different mean and spread given wine quality. This is a great sign as these two features could be good features that allow our machine learning model to distinguish different classes effectively. Also, We can see that most features are right skewed.  
 
-```{r fig.cap = "Fig 1. Density Plot of Numeric Features Given Wine Quality", out.width = '120%', out.height = '120%'}
+```{r fig.cap = "Fig 1. Density Plot of Numeric Features Given Wine Quality", out.width = '100%', out.height = '100%'}
 knitr::include_graphics('../results/densityplot.png')
 ```
 
-We used cross validation with the default cv of 5 to fit our models and obtained the mean statistics of each model. The scoring metric we decided to use is accuracy. The summary table is shown in Table 1 below. From observing the table, we used the model with the highest test score as our main model. In this case, the best model was `r best_model` so we refitted `r best_model` on our training set and evaluated the model on the test set. 
+Next, we examine if there is any class imbalance issue. Figure 2 plots the count of each class in our training data. As we can see, we have class imbalance issue where the number of observations for `Good` class far outweighs than that of `Excellent` class, which is our target of prediction. To overcome this problem, we decided to use f1 score as our validation metric where the average method is set to `weighted`. We chose weighted f1 score because it calculates the f1 score for each class and calculates an average score given the class proportion. In addition, when we build our models, the class weight parameter will be set to `balanced` to account for the class imbalance.
 
-```{r}
-knitr::kable(cv_results, caption = 'Table 1. 5 Fold Cross Validation Results')
+```{r fig.cap = "Fig 2. Distribution of Wine Quality", out.width = '50%', out.height = '50%'}
+knitr::include_graphics('../results/class_dist.png')
+
 ```
 
-Our model achieves an accuracy of `r round(test_score,2)` in predicting the correct wine quality given physicochemical and wine types, which in our opinion is a relatively good score. However, there is still room for improvement. From our cross validation results, we can see that we are overfitting with `r best_model`. This is because we have not tune our hyperparameters. Hence, further investigation and tuning are needed before we can finalize our model. 
 
-# Discussion
 
-At first glance, one can argue that `r round(test_score,2)` is a good score. However, due to overfitting, we can still improve our model through hyperparameter tuning. Hence, our next step in this project would be to tune our hyperparameter either through grid search or randomized search.
+We used cross validation with the default cv of 5 to fit our models and obtained the mean statistics of each model. The scoring metric we decided to use is accuracy. The summary table is shown in Table 1 below. From observing the table, we can see that the model Random Forest has the best validation f1 score.
 
-# Future steps: 
+```{r}
+knitr::kable(cv_results, caption = 'Table 1. 5 Fold Cross Validation Results of Untuned Models')
+```
 
-We have three classes: "Bad", "Good" and "Excellent" under "Quality level" variable. In the analysis, we need to address the issue of class imbalance as the majority of data is coming under "Good" wine. This can impact the selection of metric and choice model technique in feature.
+After our initial cross validation test, we decided to hyperparameter tune the Random Forest Model and Logistic Regression Model. We chose these two models because Random Forest was our best model and Logistic Regression was the easiest model in terms of interpretability. Table 2 presents the cross validation results of the tuned Random Forest and Logistic Regression models. From the results below, we can see that our validation scores for both models only improved slightly compared to the default model with no tuning.
+
+```{r}
+knitr::kable(tuned_cv_results, caption = 'Table 2. 5 Fold Cross Validation Results of Tuned Models')
+```
+
+Finally, we fitted the tuned Random Forest model on the training set and calculated the f1-score on the test set. The final f1 test score is `r round(test_score,2)`. Hence, our model achieved an accuracy of `r round(test_score,2)` in predicting the correct wine quality given physicochemical and wine types, which in our opinion is a relatively good score. However, there is still room for improvement as we can see from our cross validation that we are still overfitting with `r best_model`. To improve our model even further, we would need more training data to train our model as well as a more powerful computer to search through the hyperparameter space. At the current state we can conclude that our model is usable because it performs better than our baseline model by a large margin and also the accuracy of prediction is over 60%. 
+
+
+
 
 # References

@@ -2,13 +2,14 @@
 # Date: 2020/11/27
 """Create train_df and test_df files .
 
-Usage: src/eda.py <input_file> <output_file> <output_file1> <output_file2>
+Usage: src/eda.py <input_file> <output_file> <output_file1> <output_file2> <output_file3>
 
 Options:
 <input_file>     Path (including filename) to data file
 <output_file>    Path (including filename) of where to locally save fig1
 <output_file1>   Path (including filename) of where to locally save fig2
-<output_file2>   Path (including filename) of where to locally save fi3
+<output_file2>   Path (including filename) of where to locally save fig3
+<output_file3>   Path (including filename) of where to locally save fig4
 
 """
 
@@ -26,12 +27,13 @@ opt = docopt(__doc__)
 
 
 
-def main(input_file, output_file,output_file1,output_file2):
+def main(input_file, output_file,output_file1,output_file2, output_file3):
 
     # read train_df.csv
     data= pd.read_csv(input_file)
+    y_train = data['quality_level']
     
-    #create box plot
+    #create dist_plot
     sns.set(font_scale=2)
     fig, ax=plt.subplots(ncols=6, nrows=2, figsize=(30, 12))
     index=0
@@ -66,6 +68,11 @@ def main(input_file, output_file,output_file1,output_file2):
     wine_pairplot = sns.pairplot(data.drop('wine_type', axis = 1), hue="quality_level")
     # save correlation plot
     wine_pairplot.savefig(output_file2)
+    plt.figure()
+    # create class_dist plot
+    sns.set(rc={'figure.figsize':(5,5)})
+    class_dist = sns.countplot(x = 'quality_level', data=pd.DataFrame(y_train))
+    class_dist.figure.savefig(output_file3)
 
 if __name__ == "__main__":
-    main(opt["<input_file>"], opt["<output_file>"], opt["<output_file1>"],opt["<output_file2>"])
+    main(opt["<input_file>"], opt["<output_file>"], opt["<output_file1>"],opt["<output_file2>"], opt["<output_file3>"])
