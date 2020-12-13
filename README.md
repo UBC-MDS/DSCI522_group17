@@ -21,7 +21,7 @@ A copy of the report can be found [here](https://github.com/UBC-MDS/DSCI522_grou
 
 
 ## Usage
-### 1. Using Docker
+### 1. Using Docker with Mac
 
 To replicate the analysis, clone this GitHub repository and run the following commands at the command line/terminal from the root directory of this project:
 
@@ -32,7 +32,19 @@ To delete the results, please run the following commands at the command line/ter
 
     docker run --rm -v /$(pwd):/home/project jason2762/wine_analysis:latest make -C /home/project clean
 
-### 2. Without using Docker
+
+
+### 2. Using Docker with Windows
+
+To replicate the analysis, clone this GitHub repository and run the following commands using power shell from the root directory of this project:
+
+    docker run --rm -it -v <Project_Path>:/home/project jason2762/wine_analysis:latest make -C /home/project all
+
+
+To delete the results, please run the following commands using power shell from the root directory of this project:
+
+    docker run --rm -it -v <Project_Path>:/home/project jason2762/wine_analysis:latest make -C /home/project clean
+### 3. Without using Docker
 
 To replicate the analysis, clone this GitHub repository, install the dependencies listed below, and run the following commands at the command line/terminal from the root directory of this project:
 
