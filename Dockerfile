@@ -6,7 +6,7 @@
 # Build from base image
 FROM rocker/tidyverse
 
-# Run Linux Update
+# Run Linux Updates
 RUN apt-get update
 
 # install the anaconda distribution of python
